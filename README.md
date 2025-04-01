@@ -13,112 +13,93 @@ Clone the repository to your local machine using Git:
 
 ```
 
-2. Open the Project in Android Studio
-Open Android Studio.
+# ScoutAI Project Setup and Usage Guide
 
-Click on Open and navigate to the folder where the project was cloned.
+## Open the Project in Android Studio
+1. Open Android Studio.
+2. Click on **Open** and navigate to the folder where the project was cloned.
+3. Select the **ScoutAI** project and open it in Android Studio.
 
-Select the ScoutAI project and open it in Android Studio.
+## Run the App
+1. Connect an Android device to your computer or start an Android emulator.
+2. Click on the **Run** button in Android Studio (the green play icon) to build and run the app on the device or emulator.
+3. Once the app launches, you will see the main screen where you can interact with the app by clicking the **"Get Started"** button.
 
-3. Run the App
-Connect an Android device to your computer or start an Android emulator.
-
-Click on the Run button in Android Studio (the green play icon) to build and run the app on the device or emulator.
-
-Once the app launches, you will see the main screen where you can interact with the app by clicking the "Get Started" button.
-
-4. Permissions
+## Permissions
 Ensure that you grant the necessary permissions when prompted, including:
+- **Camera Permission**: `Manifest.permission.CAMERA`
+- **Location Permission**: `ACCESS_FINE_LOCATION` or `ACCESS_COARSE_LOCATION`
+- **Orientation Sensor**: Access to read device orientation data.
 
-Camera Permission (Manifest.permission.CAMERA)
+## Dependencies
+- **Jetpack Compose**: Used for building the UI with declarative components.
+- **Android Navigation Component**: Handles navigation between the app’s screens.
+- **Material3**: Provides UI components like buttons, text, and images, following Google’s Material Design guidelines.
 
-Location Permission (ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION)
+## Core Components
 
-Orientation Sensor Access to read device orientation data.
-
-Dependencies
-Jetpack Compose: Used for building the UI with declarative components.
-
-Android Navigation Component: Handles navigation between the app’s screens.
-
-Material3: Provides UI components like buttons, text, and images, following Google’s Material Design guidelines.
-
-Core Components
-1. MainActivity.kt
+### MainActivity.kt
 The entry point of the app:
+- Initializes the UI, applies the **ScoutAITheme**, and displays the **InitialScreen**.
+- Clicking the **"Get Started"** button navigates to the **SecondScreen** using an **Intent**.
 
-Initializes the UI, applies the ScoutAITheme, and displays the InitialScreen.
-
-Clicking the "Get Started" button navigates to the SecondScreen using an Intent.
-
-2. InitialScreen Composable
+### InitialScreen Composable
 Defines the main screen:
+- Displays a full-screen background image with a centered logo and button.
+- Clicking the **"Get Started"** button navigates to the next screen.
 
-Displays a full-screen background image with a centered logo and button.
+### InitialScreenPreview Composable
+Preview of InitialScreen for Android Studio:
+- Includes a dummy callback for the button, allowing you to preview the screen without triggering navigation actions.
 
-Clicking the "Get Started" button navigates to the next screen.
+### GPSLocation.kt
+Handles obtaining the device’s current GPS location using **FusedLocationProviderClient**:
+- Requests the necessary permissions and fetches the last known location.
 
-3. InitialScreenPreview Composable
-Preview of InitialScreen for Android Studio with a dummy callback for the button, allowing you to preview the screen without triggering navigation actions.
-
-4. GPSLocation.kt
-Handles obtaining the device’s current GPS location using FusedLocationProviderClient:
-
-Requests the necessary permissions and fetches the last known location.
-
-5. Orientation.kt
+### Orientation.kt
 Tracks the device’s orientation using the accelerometer and magnetometer:
+- Provides the device’s **azimuth**, **pitch**, and **roll** values in real-time.
 
-Provides the device’s azimuth, pitch, and roll values in real-time.
+### SecondScreen.kt
+Displays instructions for using the app with a green background, and includes a **"Next"** button that navigates to the **FunctionalActivity**.
 
-6. SecondScreen.kt
-Displays instructions for using the app with a green background, and includes a "Next" button that navigates to the FunctionalActivity.
-
-7. FullscreenImageDialog.kt
+### FullscreenImageDialog.kt
 Displays an image in full-screen mode with zoom and pan functionality.
 
-8. CameraViewModelAct.kt
+### CameraViewModelAct.kt
 Manages camera-related state:
+- Handles permissions, image capture, and updates the state of captured images with metadata (location and orientation).
 
-Handles permissions, image capture, and updates the state of captured images with metadata (location and orientation).
-
-9. BottomNavigation.kt
+### BottomNavigation.kt
 Defines the bottom navigation bar for switching between different sections of the app:
+- Navigation items include **"Camera"** and **"Data"**, with corresponding icons for each.
 
-Navigation items include "Camera" and "Data", with corresponding icons for each.
+## Data Collection and Visualization
 
-Data Collection and Visualization
-1. DATAVIS.kt
+### DATAVIS.kt
 Displays a list of captured images and their metadata:
+- Allows toggling between list and table view for image metadata.
+- Includes a full-screen view for captured images with zoom and pan features.
 
-Allows toggling between list and table view for image metadata.
-
-Includes a full-screen view for captured images with zoom and pan features.
-
-2. CapturedImageTable.kt
+### CapturedImageTable.kt
 Displays a table of image metadata (azimuth, pitch, roll, latitude, longitude):
+- Allows users to download image metadata as a text file for offline use.
 
-Allows users to download image metadata as a text file for offline use.
+### Camera Fragment (CameraViewModel)
+Captures images using **CameraX** while also collecting GPS and orientation data:
+- Periodically captures images based on a defined interval.
+- Tracks and stores metadata along with the images.
 
-3. Camera Fragment (CameraViewModel)
-Captures images using CameraX while also collecting GPS and orientation data:
+## Assumptions, Limitations, and Known Issues
 
-Periodically captures images based on a defined interval.
+### Assumptions:
+- The app assumes that the camera is fixed in a vertical position during image capture. It is currently configured for capturing images in a vertical orientation, and tilting the camera may cause issues with metadata accuracy.
 
-Tracks and stores metadata along with the images.
+### Known Issues:
+- If the capture interval is set too low, multiple images may be captured in rapid succession and added to the **ItemsList**, potentially leading to redundant data.
 
-Assumptions, Limitations, and Known Issues
-Assumptions:
-The app assumes that the camera is fixed in a vertical position during image capture. It is currently configured for capturing images in a vertical orientation, and tilting the camera may cause issues with metadata accuracy.
-
-Known Issues:
-If the capture interval is set too low, multiple images may be captured in rapid succession and added to the ItemsList, potentially leading to redundant data.
-
-Requirements
+## Requirements
 To run this app, ensure that the following permissions are granted:
-
-Camera Permission (Manifest.permission.CAMERA)
-
-Location Permission (ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION)
-
-Orientation Sensor Access (permissions to access device’s orientation sensors).
+- **Camera Permission**: `Manifest.permission.CAMERA`
+- **Location Permission**: `ACCESS_FINE_LOCATION` or `ACCESS_COARSE_LOCATION`
+- **Orientation Sensor Access**: Permissions to access the device’s orientation sensors.
