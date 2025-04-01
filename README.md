@@ -9,8 +9,7 @@ ScoutAI is an Android app designed for capturing images along with their metadat
 Clone the repository to your local machine using Git:
 
 ```bash
-[git clone https://github.com/yourusername/ScoutAI.git](https://github.com/Divyanshumalik1/ScoutAIapp.git)
-
+git clone https://github.com/Divyanshumalik1/ScoutAIapp.git
 ```
 
 # ScoutAI Project Setup and Usage Guide
@@ -42,15 +41,8 @@ Ensure that you grant the necessary permissions when prompted, including:
 The entry point of the app:
 - Initializes the UI, applies the **ScoutAITheme**, and displays the **InitialScreen**.
 - Clicking the **"Get Started"** button navigates to the **SecondScreen** using an **Intent**.
-
-### InitialScreen Composable
-Defines the main screen:
 - Displays a full-screen background image with a centered logo and button.
 - Clicking the **"Get Started"** button navigates to the next screen.
-
-### InitialScreenPreview Composable
-Preview of InitialScreen for Android Studio:
-- Includes a dummy callback for the button, allowing you to preview the screen without triggering navigation actions.
 
 ### GPSLocation.kt
 Handles obtaining the device’s current GPS location using **FusedLocationProviderClient**:
@@ -76,16 +68,16 @@ Defines the bottom navigation bar for switching between different sections of th
 
 ## Data Collection and Visualization
 
-### DATAVIS.kt
+### DataVis.kt
 Displays a list of captured images and their metadata:
 - Allows toggling between list and table view for image metadata.
 - Includes a full-screen view for captured images with zoom and pan features.
 
-### CapturedImageTable.kt
+### CapturedTextData.kt
 Displays a table of image metadata (azimuth, pitch, roll, latitude, longitude):
 - Allows users to download image metadata as a text file for offline use.
 
-### Camera Fragment (CameraViewModel)
+### CameraFunctionality.kt
 Captures images using **CameraX** while also collecting GPS and orientation data:
 - Periodically captures images based on a defined interval.
 - Tracks and stores metadata along with the images.
